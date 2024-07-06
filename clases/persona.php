@@ -50,6 +50,15 @@ class Persona{
       $this->edad = $edad;
     }
 
+
+
+    public function GetPersonaById($tabla, $id){
+      $sql = "SELECT * FROM $tabla where id = $id";
+      $stm = $this->connection->prepare($sql);
+
+    }
+
+
     //Metodos
   
     public function Guardar(){
@@ -59,19 +68,42 @@ class Persona{
       $stm->bindParam(':apellido',$this->apellido);
       $stm->bindParam(':genero',$this->genero);
       $stm->bindParam(':edad',$this->edad);
-      $stm->execute();
+      // Ejecutamos la consulta
+      if($stm->execute()){
+        return $this->connection->lastInsertId();
+      }else{
+        return $this->connection->error_info();
+      }
     }
-    public function Listar(){
-      $sql = "SELECT * FROM tb_aprendiz";
-      $stm = $this->connection->prepare($sql);
-      $stm->execute();
-      return $stm->fetchAll();
-    }
-    public function Eliminar(){
-      $sql = "DELETE * FROM ";
-      $stm = $this->connection->prepare($sql);
-      $stm->execute();
-      return $stm->fetchAll();
-    }
+    // public function Listar(){
+    //   $sql = "SELECT * FROM tb_aprendiz";
+    //   $stm = $this->connection->prepare($sql);
+    //   $stm->execute();
+    //   return $stm->fetchAll();
+    // }
+    // public function Eliminar(){
+    //   $sql = "DELETE * FROM tb_aprendiz where id = :id";
+    //   $stm = $this->connection->prepare($sql);
+    //   $stm->execute();
+    //   return $stm->fetchAll();
+    // }
+    // public function modificar($tabla){
+    //   $sql = "UPDATE $tabla SET  nombre = :nombre, apellido = :apellido, genero = :genero, edad = :edad where id = :id";
+    //   $stm = $this->connection->prepare($sql);
+    //   $stm->binParam(':nombre', $this->nombre);
+    //   $stm->binParam(':apellido', $this->apellido);
+    //   $stm->binParam(':genero', $this->genero);
+    //   $stm->binParam(':edad', $this->edad);
+    //   $stm->binParam(':id', $this->id);
+    //   $stm->execute();
+    //   if($stm->execute()){
+    //     return true;
+    //   }else{
+    //     return false;
+    //   }
+
+
+    //   repare($sql); 
+    // }
   
 }

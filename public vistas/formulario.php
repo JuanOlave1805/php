@@ -1,5 +1,5 @@
 <!-- Formulario con metodo post -->
-  <form action="controladores/controlador.php" method="POST">
+  <form action="controladores/ruter.php" method="POST">
     <!-- Campo para el nombre -->
     <div>
       <label for="nombre">Nombre</label>
